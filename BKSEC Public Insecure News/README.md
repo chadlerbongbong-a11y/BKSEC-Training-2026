@@ -41,7 +41,7 @@ Từ các dữ liệu đọc được qua lỗ hổng LFI này, chúng ta xác �
 * Endpoint `/console`: Đây là giao diện **Werkzeug Debug Console** và hệ thống yêu cầu mã PIN để truy cập.
 ![alt text](asset/werkzeug-debug-console.png)
 
-Nói tới Werkzeug, chúng ta có một kỹ thuật nổi tiếng để bypass mã PIN này ,tham khảo repo: `[tại đây](https://github.com/wdahlenburg/werkzeug-debug-console-bypass)`. Để tự tạo (gen) được mã PIN, ta cần thu thập đủ 5 thông tin sau từ server mục tiêu:
+Nói tới Werkzeug, chúng ta có một kỹ thuật nổi tiếng để bypass mã PIN này ,tham khảo repo: *([https://github.com/wdahlenburg/werkzeug-debug-console-bypass](https://github.com/wdahlenburg/werkzeug-debug-console-bypass))*. Để tự tạo (gen) được mã PIN, ta cần thu thập đủ 5 thông tin sau từ server mục tiêu:
 
 1. Username chạy tiến trình.
 
