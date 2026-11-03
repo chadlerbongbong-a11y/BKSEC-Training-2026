@@ -147,7 +147,7 @@ if rv is None:
 		rv = num
 
 print("Pin: " + rv)
-```
+````
 
 Chạy script trên, ta thu được mã PIN: **`834-198-249`**
 
