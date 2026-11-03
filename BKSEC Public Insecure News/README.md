@@ -17,7 +17,7 @@ Mình sử dụng công cụ `dirsearch` để quét thư mục ẩn và phát h
 
 ![alt text](asset/dirsearch-reccon.png)
 
-Tiếp tục phân tích các request qua Burp Suite, mình phát hiện đúng thật có một API gọi ảnh logo có dấu hiệu đáng ngờ, rất giống với lỗ hổng Path Traversal.
+Tiếp tục phân tích các request qua Burp Suite, mình phát hiện đúng thật có một API gọi ảnh logo hơi sus, có khả năng là Path Traversal.
 
 Ban đầu mình thử payload cơ bản `../../../etc/passwd` thì bị hệ thống trả về lỗi 
 ![alt text](asset/fillter_check.png). 
@@ -102,7 +102,7 @@ print(0x92504aa80b4d)
 
 Thay thế tất cả các thông tin đã thu thập được vào script khai thác sau:
 
-````python`
+````python
 #!/bin/python3
 import hashlib
 from itertools import chain
@@ -147,11 +147,12 @@ if rv is None:
 		rv = num
 
 print("Pin: " + rv)
+
 ```
 
 Chạy script trên, ta thu được mã PIN: **`834-198-249`**
 
-## III. Đọc Flag
+ III. Đọc Flag
 
 Sử dụng mã PIN vừa tạo được để login vào endpoint `/console`. Tại đây, giao diện Interactive Console đã được mở, cho phép chúng ta thực thi lệnh Python trực tiếp (RCE) để đọc file flag trên hệ thống server.
 
